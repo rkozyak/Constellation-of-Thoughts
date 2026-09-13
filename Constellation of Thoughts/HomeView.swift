@@ -8,8 +8,35 @@
 import SwiftUI
 
 struct HomeView: View {
+    @State private var isPresentingNewStar = false
+    @State private var isPresentingAccount = false
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack {
+            Text("Hello, World!")
+                .navigationTitle("Constellation")
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button("Account", systemImage: "person.crop.circle") {
+                            isPresentingAccount = true
+                        }
+                    }
+
+                    ToolbarSpacer(.flexible, placement: .bottomBar)
+
+                    ToolbarItem(placement: .bottomBar) {
+                        Button("New Memory", systemImage: "star.fill") {
+                            isPresentingNewStar = true
+                        }
+                    }
+                }
+        }
+        .sheet(isPresented: $isPresentingNewStar) {
+            NewStarView()
+        }
+        .sheet(isPresented: $isPresentingAccount) {
+            AccountView()
+        }
     }
 }
 

@@ -8,12 +8,12 @@
 import SwiftUI
 
 enum AppTab: Hashable {
-    case home, journal, settings
+    case home, journal, search
 }
 
 struct ContentView: View {
     @State private var selection: AppTab = .home
-    @State private var isPresentingNewStar = false
+    @State private var searchText = ""
 
     var body: some View {
         TabView(selection: $selection) {
@@ -25,26 +25,13 @@ struct ContentView: View {
                 HomeView()
             }
 
-            Tab("Settings", systemImage: "gear", value: AppTab.settings) {
-                SettingsView()
+            Tab(value: AppTab.search, role: .search) {
+                NavigationStack {
+                    Text("Search")
+                        .navigationTitle("Search")
+                }
+                .searchable(text: $searchText)
             }
-        }
-        .overlay(alignment: .bottomTrailing) {
-            Button {
-                isPresentingNewStar = true
-            } label: {
-                Image(systemName: "star.fill")
-                    .font(.system(size: 20, weight: .semibold))
-                    .frame(width: 56, height: 56)
-                    .contentShape(.circle)
-            }
-            .buttonStyle(.plain)
-            .glassEffect(.regular.interactive(), in: .circle)
-            .padding(.trailing, 16)
-            .padding(.bottom, 4)
-        }
-        .sheet(isPresented: $isPresentingNewStar) {
-            NewStarView()
         }
     }
 }
