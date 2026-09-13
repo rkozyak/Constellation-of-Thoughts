@@ -59,7 +59,7 @@ struct NewStarView: View {
                 }
 
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Save", action: save)
+                    Button("Save", systemImage: "checkmark", action: save)
                         .disabled(!canSave)
                 }
             }
