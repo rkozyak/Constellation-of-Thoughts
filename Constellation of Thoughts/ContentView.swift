@@ -8,12 +8,11 @@
 import SwiftUI
 
 enum AppTab: Hashable {
-    case home, journal, search
+    case home, journal, new
 }
 
 struct ContentView: View {
     @State private var selection: AppTab = .home
-    @State private var searchText = ""
 
     var body: some View {
         TabView(selection: $selection) {
@@ -25,12 +24,8 @@ struct ContentView: View {
                 HomeView()
             }
 
-            Tab(value: AppTab.search, role: .search) {
-                NavigationStack {
-                    Text("Search")
-                        .navigationTitle("Search")
-                }
-                .searchable(text: $searchText)
+            Tab("New", systemImage: "star.fill", value: AppTab.new, role: .prominent) {
+                NewStarView()
             }
         }
     }

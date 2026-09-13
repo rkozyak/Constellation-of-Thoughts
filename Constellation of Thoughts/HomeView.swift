@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct HomeView: View {
-    @State private var isPresentingNewStar = false
     @State private var isPresentingAccount = false
 
     var body: some View {
@@ -21,18 +20,7 @@ struct HomeView: View {
                             isPresentingAccount = true
                         }
                     }
-
-                    ToolbarSpacer(.flexible, placement: .bottomBar)
-
-                    ToolbarItem(placement: .bottomBar) {
-                        Button("New Memory", systemImage: "star.fill") {
-                            isPresentingNewStar = true
-                        }
-                    }
                 }
-        }
-        .sheet(isPresented: $isPresentingNewStar) {
-            NewStarView()
         }
         .sheet(isPresented: $isPresentingAccount) {
             AccountView()
