@@ -14,7 +14,9 @@ struct JournalView: View {
 
     var body: some View {
         NavigationStack {
-            Group {
+            ZStack {
+                NightSky()
+
                 if constellations.allSatisfy(\.stars.isEmpty) {
                     ContentUnavailableView("No Thoughts Yet", systemImage: "sparkles")
                 } else {
@@ -43,6 +45,7 @@ struct JournalView: View {
                 }
             }
         }
+        .scrollContentBackground(.hidden)
     }
 
     private func row(for star: Star) -> some View {

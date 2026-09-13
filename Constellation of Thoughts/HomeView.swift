@@ -17,12 +17,7 @@ struct HomeView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                LinearGradient(
-                    colors: [Color(red: 0.03, green: 0.05, blue: 0.15), .black],
-                    startPoint: .top,
-                    endPoint: .bottom
-                )
-                .ignoresSafeArea()
+                NightSky()
 
                 if stars.isEmpty {
                     ContentUnavailableView("No Thoughts Yet", systemImage: "sparkles")
