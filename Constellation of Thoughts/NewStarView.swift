@@ -10,15 +10,18 @@ import SwiftData
 
 struct NewStarView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query(sort: \Constellation.createdAt) private var constellations: [Constellation]
-
     @Environment(\.dismiss) private var dismiss
+
+    @Query(sort: \Constellation.createdAt) private var constellations: [Constellation]
+    /// Only used to find the constellation the last star was saved into.
+    @Query(sort: \Star.createdAt, order: .reverse) private var recentStars: [Star]
 
     @State private var text = ""
     @State private var note = ""
     @State private var constellation: Constellation?
     @State private var isNamingConstellation = false
     @State private var newConstellationName = ""
+    @FocusState private var isEditingThought: Bool
 
     private var canSave: Bool {
         !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && constellation != nil
@@ -30,6 +33,7 @@ struct NewStarView: View {
                 Section("Thought") {
                     TextField("What do you want to remember?", text: $text, axis: .vertical)
                         .lineLimit(1...4)
+                        .focused($isEditingThought)
                 }
 
                 Section("Note") {
@@ -38,14 +42,15 @@ struct NewStarView: View {
                 }
 
                 Section("Constellation") {
-                    Picker("Constellation", selection: $constellation) {
-                        Text("None").tag(Constellation?.none)
-                        ForEach(constellations) { constellation in
-                            Text(constellation.name).tag(Constellation?.some(constellation))
+                    if !constellations.isEmpty {
+                        Picker("Constellation", selection: $constellation) {
+                            ForEach(constellations) { constellation in
+                                Text(constellation.name).tag(Constellation?.some(constellation))
+                            }
                         }
+                        .pickerStyle(.inline)
+                        .labelsHidden()
                     }
-                    .pickerStyle(.inline)
-                    .labelsHidden()
 
                     Button("New Constellation", systemImage: "plus") {
                         isNamingConstellation = true
@@ -69,6 +74,11 @@ struct NewStarView: View {
                 Button("Create", action: createConstellation)
             } message: {
                 Text("Group related thoughts under a theme.")
+            }
+            .onAppear {
+                // Start in whichever constellation the last thought went into.
+                constellation = recentStars.first?.constellation ?? constellations.first
+                isEditingThought = true
             }
         }
     }
