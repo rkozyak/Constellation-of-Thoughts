@@ -58,6 +58,7 @@ struct NewStarView: View {
                 }
             }
             .navigationTitle("New Star")
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") { dismiss() }
@@ -81,6 +82,7 @@ struct NewStarView: View {
                 isEditingThought = true
             }
         }
+        .presentationDetents([.medium, .large])
     }
 
     private func createConstellation() {
