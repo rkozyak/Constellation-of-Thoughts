@@ -60,10 +60,6 @@ struct NewStarView: View {
             .navigationTitle("New Star")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") { dismiss() }
-                }
-
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Save", systemImage: "checkmark", action: save)
                         .disabled(!canSave)
