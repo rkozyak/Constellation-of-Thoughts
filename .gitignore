@@ -5,3 +5,8 @@ xcuserdata/
 *.xcuserstate
 build/
 DerivedData/
+
+# Firebase CLI
+firebase-debug.log
+firestore-debug.log
+.firebase/

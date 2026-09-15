@@ -6,6 +6,11 @@
 	objectVersion = 110;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		F1B0A00000000000000000A4 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = F1B0A00000000000000000A2 /* FirebaseAuth */; };
+		F1B0A00000000000000000A5 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = F1B0A00000000000000000A3 /* FirebaseFirestore */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		E778E9E8305642E500BB2D3B /* Constellation of Thoughts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Constellation of Thoughts.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -22,6 +27,8 @@
 		E778E9E5305642E500BB2D3B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			files = (
+				F1B0A00000000000000000A4 /* FirebaseAuth in Frameworks */,
+				F1B0A00000000000000000A5 /* FirebaseFirestore in Frameworks */,
 			);
 		};
 /* End PBXFrameworksBuildPhase section */
@@ -60,6 +67,10 @@
 				E778E9EA305642E500BB2D3B /* Constellation of Thoughts */,
 			);
 			name = "Constellation of Thoughts";
+			packageProductDependencies = (
+				F1B0A00000000000000000A2 /* FirebaseAuth */,
+				F1B0A00000000000000000A3 /* FirebaseFirestore */,
+			);
 			productName = "Constellation of Thoughts";
 			productReference = E778E9E8305642E500BB2D3B /* Constellation of Thoughts.app */;
 			productType = "com.apple.product-type.application";
@@ -88,6 +99,9 @@
 			);
 			mainGroup = E778E9DF305642E500BB2D3B;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				F1B0A00000000000000000A1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = E778E9E9305642E500BB2D3B /* Products */;
 			projectDirPath = "";
@@ -322,6 +336,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F1B0A00000000000000000A1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.19.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F1B0A00000000000000000A2 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F1B0A00000000000000000A1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		F1B0A00000000000000000A3 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F1B0A00000000000000000A1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E778E9E0305642E500BB2D3B /* Project object */;
 	validationLevel = 1;
