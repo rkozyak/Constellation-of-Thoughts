@@ -99,6 +99,14 @@ struct NewStarView: View {
         )
         modelContext.insert(star)
 
+        Task {
+            do {
+                star.remoteID = try await StarCloud.upload(star)
+            } catch {
+                print("Star upload failed: \(error)")
+            }
+        }
+
         dismiss()
     }
 }

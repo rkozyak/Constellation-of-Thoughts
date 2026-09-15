@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 import SwiftData
 
 enum AppTab: Hashable {
@@ -13,6 +14,10 @@ enum AppTab: Hashable {
 }
 
 struct ContentView: View {
+    @Environment(AuthSession.self) private var session
+    /// Stars that have not reached Firestore yet, from before sync existed or a failed upload.
+    @Query(filter: #Predicate<Star> { $0.remoteID == nil }) private var unsyncedStars: [Star]
+
     @State private var selection: AppTab = .home
     @State private var isAddingStar = false
 
@@ -47,10 +52,18 @@ struct ContentView: View {
         .sheet(isPresented: $isAddingStar) {
             NewStarView()
         }
+        // Reruns on sign-in, so stars saved while signed out get backed up.
+        .task(id: session.user?.uid) {
+            guard session.user != nil else { return }
+            for star in unsyncedStars {
+                star.remoteID = try? await StarCloud.upload(star)
+            }
+        }
     }
 }
 
 #Preview {
     ContentView()
+        .environment(AuthSession())
         .modelContainer(for: Star.self, inMemory: true)
 }

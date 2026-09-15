@@ -17,6 +17,8 @@ final class Star {
     /// Offset from the constellation's center, in normalized sky coordinates.
     var offsetX: Double
     var offsetY: Double
+    /// The Firestore document ID once uploaded; nil until the upload succeeds.
+    var remoteID: String?
 
     var constellation: Constellation?
 

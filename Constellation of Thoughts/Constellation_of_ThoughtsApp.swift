@@ -7,12 +7,21 @@
 
 import SwiftUI
 import SwiftData
+import FirebaseCore
 
 @main
 struct Constellation_of_ThoughtsApp: App {
+    @State private var session: AuthSession
+
+    init() {
+        FirebaseApp.configure()
+        _session = State(initialValue: AuthSession())
+    }
+
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(session)
                 .preferredColorScheme(.dark)
         }
         .modelContainer(for: Star.self)

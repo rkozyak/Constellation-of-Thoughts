@@ -72,7 +72,11 @@ struct JournalView: View {
     private func delete(_ offsets: IndexSet, in constellation: Constellation) {
         let stars = stars(in: constellation)
         for offset in offsets {
-            modelContext.delete(stars[offset])
+            let star = stars[offset]
+            if let remoteID = star.remoteID {
+                Task { try? await StarCloud.delete(id: remoteID) }
+            }
+            modelContext.delete(star)
         }
     }
 }

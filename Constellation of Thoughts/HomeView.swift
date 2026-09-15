@@ -45,5 +45,6 @@ struct HomeView: View {
 
 #Preview {
     HomeView()
+        .environment(AuthSession())
         .modelContainer(for: Star.self, inMemory: true)
 }
